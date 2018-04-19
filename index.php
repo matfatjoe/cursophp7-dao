@@ -41,11 +41,21 @@ require_once("config.php");
 
 
 //UPDATES
+// $usuario = new Usuario();
+
+// $usuario->loadById(18);
+
+// $usuario->update("jkl", "!@##@!");
+
+// echo $usuario;
+ 
+
+//DELETES
 $usuario = new Usuario();
 
 $usuario->loadById(18);
-
-$usuario->update("jkl", "!@##@!");
+$usuario->delete();
 
 echo $usuario;
+
  ?>
