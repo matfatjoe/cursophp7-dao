@@ -48,12 +48,7 @@ class Usuario {
 		));
 		if (count($results) > 0) {
 			
-			$row = $results[0];
-
-			$this->setId($row['id']);
-			$this->setLogin($row['login']);
-			$this->setSenha($row['senha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+			$this->setData($results[0]);
 
 		}
 
@@ -88,17 +83,57 @@ class Usuario {
 		));
 		if (count($results) > 0) {
 			
-			$row = $results[0];
+			$this->setData($results[0]);
 
-			$this->setId($row['id']);
-			$this->setLogin($row['login']);
-			$this->setSenha($row['senha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
 		} else{
 
 			throw new Exception("Login e/ou senha invalidos");
 			
 		}
+	}
+
+	public function setData($data) {
+
+		$this->setId($data['id']);
+		$this->setLogin($data['login']);
+		$this->setSenha($data['senha']);
+		$this->setDtcadastro(new DateTime($data['dtcadastro']));
+	}
+
+	public function insert() {
+
+		$sql = new Sql();
+
+		$results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+			":LOGIN"=>$this->getLogin(),
+			":PASSWORD"=>$this->getSenha()
+		));
+
+		if (count($results) > 0) {
+			$this->setData($results[0]);
+		}
+	}
+
+	public function update($login, $password) {
+
+		$this->setLogin($login);
+		$this->setSenha($senha);
+
+		$sql = new Sql();
+
+		$sql->query("UPDATE tb_usuarios SET login = :LOGIN, senha = :PASSWORD WHERE id = :ID", array(
+			':LOGIN'=>$this->getLogin(),
+			':PASSWORD'=:$this->getSenha(),
+			':ID'=>$this->getId()
+		));
+
+	}
+
+	public function __construct($login = "", $password = "") {
+
+		$this->setLogin($login);
+		$this->setSenha($password);
+
 	}
 
 	public function __toString() {
