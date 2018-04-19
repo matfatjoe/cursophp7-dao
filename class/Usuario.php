@@ -117,13 +117,13 @@ class Usuario {
 	public function update($login, $password) {
 
 		$this->setLogin($login);
-		$this->setSenha($senha);
+		$this->setSenha($password);
 
 		$sql = new Sql();
 
 		$sql->query("UPDATE tb_usuarios SET login = :LOGIN, senha = :PASSWORD WHERE id = :ID", array(
 			':LOGIN'=>$this->getLogin(),
-			':PASSWORD'=:$this->getSenha(),
+			':PASSWORD'=>$this->getSenha(),
 			':ID'=>$this->getId()
 		));
 

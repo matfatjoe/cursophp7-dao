@@ -32,10 +32,20 @@ require_once("config.php");
 
 // echo $usuario;
 
+//INSERTS
+// $aluno = new Usuario("aluno Teste", "senha01");
 
-$aluno = new Usuario("aluno Teste", "senha01");
+// $aluno->insert();
 
-$aluno->insert();
+// echo $aluno;
 
-echo $aluno;
+
+//UPDATES
+$usuario = new Usuario();
+
+$usuario->loadById(18);
+
+$usuario->update("jkl", "!@##@!");
+
+echo $usuario;
  ?>
